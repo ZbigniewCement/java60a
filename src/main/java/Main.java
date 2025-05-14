@@ -49,7 +49,7 @@ class Main {
 
     public static int menu() {
         int choice = -1; 
-        while (true) {
+        while (choice < 0 || choice > 3) {
             System.out.println("Wciśnij:");
             System.out.println("1 - aby dodać studenta");
             System.out.println("2 - aby wypisać wszystkich studentów");
@@ -58,7 +58,9 @@ class Main {
 
             try {
                 choice = scan.nextInt();
-                break; 
+                if (choice < 0 || choice > 3) {
+                    System.out.println("Błędny wybór! Wybierz numer od 0 do 3.");
+                }
             } catch (InputMismatchException e) {
                 System.out.println("Błędny wybór! Wprowadź cyfrę.");
                 scan.nextLine(); 
@@ -85,7 +87,7 @@ class Main {
         if(age < 1 || age > 99)
             throw new WrongAge();
 
-        scan.nextLine();
+        scan.nextLine(); 
         System.out.println("Podaj datę urodzenia DD-MM-YYYY");
         var date = scan.nextLine();
         if (!date.matches("\\d{2}-\\d{2}-\\d{4}")) {
