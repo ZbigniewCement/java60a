@@ -14,6 +14,7 @@ Poniższe zadania będą się sprowadzały do modyfikacji bazowego kodu. Proces 
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 class WrongStudentName extends Exception { }
 
@@ -35,7 +36,7 @@ class Main {
                     default: return;
                 }
             } catch(IOException e) {
-               
+
             } catch(WrongStudentName e) {
                 System.out.println("Błędne imię studenta!");
             } catch(WrongAge e) {
@@ -47,12 +48,23 @@ class Main {
     }
 
     public static int menu() {
-        System.out.println("Wciśnij:");
-        System.out.println("1 - aby dodać studenta");
-        System.out.println("2 - aby wypisać wszystkich studentów");
-        System.out.println("3 - aby wyszukać studenta po imieniu");
-        System.out.println("0 - aby wyjść z programu");
-        return scan.nextInt();
+        int choice = -1; 
+        while (true) {
+            System.out.println("Wciśnij:");
+            System.out.println("1 - aby dodać studenta");
+            System.out.println("2 - aby wypisać wszystkich studentów");
+            System.out.println("3 - aby wyszukać studenta po imieniu");
+            System.out.println("0 - aby wyjść z programu");
+
+            try {
+                choice = scan.nextInt();
+                break; 
+            } catch (InputMismatchException e) {
+                System.out.println("Błędny wybór! Wprowadź cyfrę.");
+                scan.nextLine(); 
+            }
+        }
+        return choice;
     }
 
     public static String ReadName() throws WrongStudentName {
